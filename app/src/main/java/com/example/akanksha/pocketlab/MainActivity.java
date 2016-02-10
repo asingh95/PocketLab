@@ -1,10 +1,12 @@
 package com.example.akanksha.pocketlab;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,7 +20,7 @@ public class MainActivity extends ActionBarActivity {
 
     Activity mSelf = this;
     TextView resultArea;
-    Button nextActivityButton;
+    Button loginButton;
     Button makeUserButton;
     EditText loginline;
     EditText passline;
@@ -28,11 +30,19 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         resultArea = (TextView) findViewById(R.id.text_view);
-        nextActivityButton = (Button) findViewById(R.id.next_activity_button);
+        loginButton = (Button) findViewById(R.id.next_activity_button);
         makeUserButton = (Button) findViewById(R.id.make_new_user_button);
         loginline = (EditText) findViewById(R.id.enter_username);
         passline = (EditText) findViewById(R.id.enter_password);
-        resultArea.setText("");//(getString(R.string.please_wait_message));
+        resultArea.setText("");
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mSelf, HomeScreen.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
