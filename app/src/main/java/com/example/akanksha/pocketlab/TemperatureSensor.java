@@ -1,39 +1,23 @@
 package com.example.akanksha.pocketlab;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 
-public class HomeScreen extends ActionBarActivity {
-    Button newExpButton;
-    Activity homeScreenSelf = this;
+public class TemperatureSensor extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
-
-        newExpButton = (Button) findViewById(R.id.new_experiment_button);
-
-        newExpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(homeScreenSelf, NewExperiment.class);
-                startActivity(intent);
-            }
-        });
+        setContentView(R.layout.activity_temperature_sensor);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home_screen, menu);
+        getMenuInflater().inflate(R.menu.menu_temperature_sensor, menu);
         return true;
     }
 

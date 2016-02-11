@@ -30,6 +30,26 @@
             android:name=".HomeScreen"
             android:label="@string/title_activity_home_screen" >
         </activity>
+        <activity
+            android:name=".NewExperiment"
+            android:label="@string/title_activity_new_experiment" >
+        </activity>
+        <activity
+            android:name=".ColorSensor"
+            android:label="@string/title_activity_color_sensor" >
+        </activity>
+        <activity
+            android:name=".TemperatureSensor"
+            android:label="@string/title_activity_temperature_sensor" >
+        </activity>
+        <activity
+            android:name=".HumiditySensor"
+            android:label="@string/title_activity_humidity_sensor" >
+        </activity>
+        <activity
+            android:name=".AccelSensor"
+            android:label="@string/title_activity_accel_sensor" >
+        </activity>
     </application>
 
 </manifest>
