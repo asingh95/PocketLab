@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.concurrent.ExecutionException;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -39,9 +41,64 @@ public class MainActivity extends ActionBarActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mSelf, HomeScreen.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(mSelf, HomeScreen.class);
+                startActivity(intent);*/
+
+                LoginSQL s = new LoginSQL(resultArea);
+                String loginname = loginline.getText().toString().trim();
+                String password = passline.getText().toString().trim();
+                String value = "";
+
+                if (loginname.equals("")){
+                    /*int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+
+                    if (resultCode == ConnectionResult.SUCCESS){
+                        Toast.makeText(getApplicationContext(),
+                                "isGooglePlayServicesAvailable SUCCESS",
+                                Toast.LENGTH_LONG).show();
+                    }else{
+                        GooglePlayServicesUtil.getErrorDialog(resultCode, mSelf, 1);
+                        Toast.makeText(getApplicationContext(),
+                                String.valueOf(resultCode),
+                                Toast.LENGTH_LONG).show();
+                    }*/
+                    return;
+                }
+                if (password.equals("")){
+                    return;
+                }
+                //resultArea.setText(loginname);
+                s.execute("SELECT * from login_info WHERE username=\'"+loginname+"\'",password);
+                //Log.d(MainActivity.class.getSimpleName(), "success " + s.success);
+
+                try
+                {
+                    value = s.get();
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                } catch (ExecutionException e)
+                {
+                    e.printStackTrace();
+                }
+
+                if(value.equals(""))
+                {
+                    resultArea.setText("Username does not exist");
+                }
+                else if (!value.equals(password))
+                {
+                    resultArea.setText("Incorrect Password");
+                }
+                else
+                {
+                    resultArea.setText("Login Successful");
+                    currentUser = loginname;
+                    Intent intent = new Intent(mSelf, HomeScreen.class);
+                    startActivity(intent);
+                }
             }
+
         });
     }
 
