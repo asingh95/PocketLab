@@ -1,42 +1,43 @@
 package com.example.akanksha.pocketlab;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.hardware.Camera;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 
-public class ColorSensor extends ActionBarActivity {
-
-    Button captureButton;
-    Activity colorSensorSelf = this;
+public class CameraActivity extends ActionBarActivity {
+    // from http://blog.rhesoft.com/2015/04/02/tutorial-how-to-use-camera-with-android-and-android-studio/
     private Camera mCamera = null;
     private CameraView mCameraView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_color_sensor);
+        setContentView(R.layout.activity_camera);
 
-        captureButton = (Button) findViewById(R.id.capture_button);
-        captureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(colorSensorSelf, CameraActivity.class);
-                startActivity(intent);
-            }
-        });
+        try{
+            mCamera = Camera.open();//you can use open(int) to use different cameras
+        } catch (Exception e){
+            Log.d("ERROR", "Failed to get camera: " + e.getMessage());
+        }
+
+        if(mCamera != null) {
+            mCameraView = new CameraView(this, mCamera);//create a SurfaceView to show camera data
+            FrameLayout camera_view = (FrameLayout)findViewById(R.id.camera_view);
+            camera_view.addView(mCameraView);//add the SurfaceView to the layout
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_color_sensor, menu);
+        getMenuInflater().inflate(R.menu.menu_camera, menu);
         return true;
     }
 
