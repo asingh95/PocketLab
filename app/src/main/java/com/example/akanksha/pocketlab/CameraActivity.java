@@ -1,5 +1,6 @@
 package com.example.akanksha.pocketlab;
 
+import android.content.Intent;
 import android.hardware.Camera;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
@@ -15,6 +17,8 @@ public class CameraActivity extends ActionBarActivity {
     // from http://blog.rhesoft.com/2015/04/02/tutorial-how-to-use-camera-with-android-and-android-studio/
     private Camera mCamera = null;
     private CameraView mCameraView = null;
+    Button whiteBalanceButton;
+    private boolean whiteBalanceLocked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,27 @@ public class CameraActivity extends ActionBarActivity {
             FrameLayout camera_view = (FrameLayout)findViewById(R.id.camera_view);
             camera_view.addView(mCameraView);//add the SurfaceView to the layout
         }
+
+        whiteBalanceButton = (Button) findViewById(R.id.white_balance_button);
+        whiteBalanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Camera.Parameters params = mCamera.getParameters();
+                if (params.isAutoWhiteBalanceLockSupported()) {
+                    params.setAutoWhiteBalanceLock(!whiteBalanceLocked);
+                    whiteBalanceLocked = !whiteBalanceLocked;
+                    if(!whiteBalanceLocked)
+                    {
+                        whiteBalanceButton.setText("X");
+                    }
+                    else
+                    {
+                        whiteBalanceButton.setText("");
+                    }
+                }
+                mCamera.setParameters(params);
+            }
+        });
     }
 
     @Override
