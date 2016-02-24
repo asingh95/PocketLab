@@ -54,6 +54,17 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
         try{
             mCamera.setPreviewDisplay(mHolder);
             mCamera.startPreview();
+            //mCamera.autoFocus(null);
+            Camera.Parameters params = mCamera.getParameters();
+            if (params.getSupportedFocusModes().contains(
+                    Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+                params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            }
+            if(params.getSupportedWhiteBalance().contains(Camera.Parameters.WHITE_BALANCE_AUTO))
+            {
+                params.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);
+            }
+            mCamera.setParameters(params);
         } catch (IOException e) {
             Log.d("ERROR", "Camera error on surfaceChanged " + e.getMessage());
         }
