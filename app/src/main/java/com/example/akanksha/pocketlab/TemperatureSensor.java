@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.app.*;
+
 
 
 public class TemperatureSensor extends ActionBarActivity {
@@ -12,7 +14,13 @@ public class TemperatureSensor extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature_sensor);
+        FragmentManager fragmentManager = getFragmentManager();
+        Fragment fragment = new Thermometer();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

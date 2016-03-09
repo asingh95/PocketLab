@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
-    private static final String POSTGRESS_DRIVER = "org.postgresql.Driver";
+   //private static final String POSTGRESS_DRIVER = "org.postgresql.Driver";
 
-    public static String currentUser = "";
+    //public static String currentUser = "";
 
     Activity mSelf = this;
     TextView resultArea;

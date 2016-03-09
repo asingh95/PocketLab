@@ -1,5 +1,7 @@
 package com.example.akanksha.pocketlab;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +14,11 @@ public class AccelSensor extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accel_sensor);
+        FragmentManager fragmentManager = getFragmentManager();
+        Fragment fragment = new AcceleratorPlot();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container1, fragment)
+                .commit();
     }
 
     @Override
